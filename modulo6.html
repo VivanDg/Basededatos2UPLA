@@ -206,27 +206,137 @@
       </a>
       <h1 class="text-center flex-grow-1">Semana de Clases 11</h1>
     </header>
-  
+
     <section class="mb-5">
-      <h2 class="mb-3">Temas Principales</h2>
-      <ul class="list-group">
-        <li class="list-group-item">Encriptación de datos en SQL SERVER</li>
-        <li class="list-group-item">Estructura de proyectos web</li>
-        <li class="list-group-item">Buenas prácticas en desarrollo frontend</li>
-      </ul>
-    </section>
-  
-    <section class="mb-5">
-      <h2 class="mb-3">Tareas y Actividades</h2>
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Desarrollo de Página Web Personal</h5>
-          <p class="card-text">
-            Crear una página web que utilice diseño responsivo con Bootstrap. Incluir un encabezado, contenido principal y pie de página.
-          </p>
-          <a href="#" class="btn btn-primary">Ver Detalles</a>
-        </div>
-      </div>
+        <h2>Módulo 6: Transact-SQL y Transacciones</h2>
+
+        <h3>1. Introducción a Transacciones</h3>
+        <p>
+            Las transacciones permiten agrupar una o más operaciones de manera que se asegure la consistencia y confiabilidad de los datos en una base de datos. 
+            Usan los principios de ACID (Atomicidad, Consistencia, Aislamiento, Durabilidad) para garantizar integridad.
+        </p>
+        <p><strong>Comandos principales:</strong></p>
+        <ul>
+            <li><strong>BEGIN TRANSACTION:</strong> Inicia una nueva transacción.</li>
+            <li><strong>COMMIT:</strong> Guarda los cambios realizados por la transacción.</li>
+            <li><strong>ROLLBACK:</strong> Revierte los cambios realizados si ocurre algún error.</li>
+        </ul>
+        <p><strong>Ejemplo práctico:</strong></p>
+        <pre><code>
+-- Transacción básica para transferir fondos entre dos cuentas
+BEGIN TRANSACTION;
+
+-- Debitar de la cuenta origen
+UPDATE Cuentas
+SET Saldo = Saldo - 100
+WHERE CuentaID = 1;
+
+-- Acreditar a la cuenta destino
+UPDATE Cuentas
+SET Saldo = Saldo + 100
+WHERE CuentaID = 2;
+
+-- Validación de saldos
+IF @@ERROR = 0
+    COMMIT; -- Si no hubo errores, confirmar los cambios
+ELSE
+    ROLLBACK; -- Si hubo errores, revertir los cambios
+        </code></pre>
+
+        <h3>2. Estructuras de Control</h3>
+        <p>
+            Transact-SQL incluye estructuras lógicas para controlar el flujo de ejecución de consultas y scripts. Estas estructuras permiten implementar lógica condicional y repetitiva:
+        </p>
+        <ul>
+            <li><strong>IF...ELSE:</strong> Para decisiones condicionales.</li>
+            <li><strong>WHILE:</strong> Para realizar bucles basados en una condición.</li>
+            <li><strong>GOTO:</strong> Para saltos a etiquetas específicas dentro del script.</li>
+        </ul>
+        <p><strong>Ejemplo práctico:</strong></p>
+        <pre><code>
+-- Estructura IF...ELSE
+DECLARE @Saldo DECIMAL(10, 2) = 500;
+
+IF @Saldo &gt;= 1000
+    PRINT 'Saldo suficiente para inversiones.';
+ELSE
+    PRINT 'Saldo insuficiente para inversiones.';
+
+-- Uso de WHILE para un bucle
+DECLARE @Contador INT = 1;
+
+WHILE @Contador &lt;= 5
+BEGIN
+    PRINT 'Iteración: ' + CAST(@Contador AS NVARCHAR(10));
+    SET @Contador = @Contador + 1;
+END;
+
+-- GOTO para saltar a una etiqueta
+IF @Saldo &lt; 1000
+    GOTO Fin;
+
+PRINT 'Procesando transacciones...';
+
+Fin:
+PRINT 'Fin del script.';
+        </code></pre>
+
+        <h3>3. Funciones Almacenadas y Cursores</h3>
+        <p>
+            Las funciones y procedimientos almacenados permiten encapsular lógica reutilizable en scripts. 
+            Los cursores, por otro lado, se utilizan para recorrer filas de datos de forma secuencial y realizar operaciones sobre ellas.
+        </p>
+        <h4>3.1. Procedimientos almacenados</h4>
+        <p><strong>Ejemplo práctico:</strong></p>
+        <pre><code>
+-- Creación de un procedimiento almacenado para consultar saldos
+CREATE PROCEDURE ObtenerSaldo
+    @CuentaID INT
+AS
+BEGIN
+    SELECT Saldo
+    FROM Cuentas
+    WHERE CuentaID = @CuentaID;
+END;
+
+-- Ejecutar el procedimiento
+EXEC ObtenerSaldo @CuentaID = 1;
+        </code></pre>
+
+        <h4>3.2. Uso de Cursores</h4>
+        <p><strong>Ejemplo práctico:</strong></p>
+        <pre><code>
+-- Uso de un cursor para actualizar saldos
+DECLARE CursorSaldos CURSOR FOR
+SELECT CuentaID, Saldo
+FROM Cuentas;
+
+DECLARE @CuentaID INT;
+DECLARE @Saldo DECIMAL(10, 2);
+
+OPEN CursorSaldos;
+
+FETCH NEXT FROM CursorSaldos INTO @CuentaID, @Saldo;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    -- Lógica: Incrementar saldo en un 10%
+    UPDATE Cuentas
+    SET Saldo = @Saldo * 1.1
+    WHERE CuentaID = @CuentaID;
+
+    FETCH NEXT FROM CursorSaldos INTO @CuentaID, @Saldo;
+END;
+
+CLOSE CursorSaldos;
+DEALLOCATE CursorSaldos;
+        </code></pre>
+
+        <h3>Conclusión</h3>
+        <p>
+            Este módulo introduce herramientas avanzadas para el manejo y control de datos dinámicos. 
+            Las transacciones garantizan la consistencia en operaciones críticas, mientras que las estructuras de control y los procedimientos almacenados permiten crear soluciones eficientes y escalables.
+        </p>
     </section>
   
     <section class="mb-5">

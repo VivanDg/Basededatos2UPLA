@@ -228,6 +228,113 @@
         </div>
       </div>
     </section>
+
+    <!-- Módulo 5: SQL -->
+    <div class="module-5">
+        <h2>SQL (Lenguaje de Consulta Estructurado)</h2>
+
+        <h3>1. DDL (Data Definition Language)</h3>
+        <p>El DDL se utiliza para definir y estructurar elementos dentro de una base de datos. Incluye comandos esenciales:</p>
+        <ul>
+            <li><strong>CREATE:</strong> Para crear tablas, vistas o índices.</li>
+            <li><strong>ALTER:</strong> Para modificar la estructura de objetos existentes.</li>
+            <li><strong>DROP:</strong> Para eliminar tablas, vistas u otros elementos.</li>
+        </ul>
+        <p><strong>Ejemplo práctico:</strong></p>
+        <pre><code>
+-- Crear una tabla de clientes
+CREATE TABLE Clientes (
+    ClienteID INT PRIMARY KEY,
+    Nombre NVARCHAR(100) NOT NULL,
+    Correo NVARCHAR(100) UNIQUE,
+    FechaRegistro DATE DEFAULT GETDATE()
+);
+
+-- Alterar la tabla para agregar una columna
+ALTER TABLE Clientes
+ADD Telefono NVARCHAR(15);
+
+-- Eliminar la tabla Clientes
+DROP TABLE Clientes;
+        </code></pre>
+
+        <h3>2. DML (Data Manipulation Language)</h3>
+        <p>El DML permite interactuar con los datos almacenados, con comandos como:</p>
+        <ul>
+            <li><strong>INSERT:</strong> Agrega nuevos registros a una tabla.</li>
+            <li><strong>UPDATE:</strong> Modifica registros existentes.</li>
+            <li><strong>DELETE:</strong> Elimina registros de una tabla.</li>
+            <li><strong>SELECT:</strong> Recupera datos mediante consultas.</li>
+        </ul>
+        <p><strong>Ejemplo práctico:</strong></p>
+        <pre><code>
+-- Insertar un nuevo cliente
+INSERT INTO Clientes (ClienteID, Nombre, Correo, Telefono)
+VALUES (1, 'Juan Pérez', 'juanperez@example.com', '123456789');
+
+-- Actualizar el teléfono de un cliente
+UPDATE Clientes
+SET Telefono = '987654321'
+WHERE ClienteID = 1;
+
+-- Eliminar un cliente por su ID
+DELETE FROM Clientes
+WHERE ClienteID = 1;
+
+-- Consultar clientes registrados con filtros
+SELECT Nombre, Correo, FechaRegistro
+FROM Clientes
+WHERE FechaRegistro &gt; '2024-01-01';
+        </code></pre>
+        <p>El uso de cláusulas como <code>WHERE</code>, <code>ORDER BY</code> y <code>GROUP BY</code> mejora la precisión de las consultas.</p>
+
+        <h3>3. Funciones y Herramientas</h3>
+        <p>SQL Server incluye funciones y herramientas avanzadas para manipular y analizar datos:</p>
+        <ul>
+            <li><strong>Funciones de fecha y hora:</strong> Como <code>GETDATE</code> y <code>DATEADD</code>.</li>
+            <li><strong>Funciones de conversión:</strong> Como <code>CAST</code> y <code>CONVERT</code> para transformar tipos de datos.</li>
+            <li><strong>Query Designer:</strong> Herramienta visual para construir consultas complejas.</li>
+        </ul>
+        <p><strong>Ejemplo práctico:</strong></p>
+        <pre><code>
+-- Obtener la fecha actual
+SELECT GETDATE() AS FechaActual;
+
+-- Convertir una cadena en formato fecha
+SELECT CONVERT(DATE, '2024-12-01', 120) AS Fecha;
+
+-- Agregar días a la fecha actual
+SELECT DATEADD(DAY, 10, GETDATE()) AS FechaFutura;
+
+-- Consultar con funciones de agregación
+SELECT COUNT(*) AS TotalClientes, MAX(FechaRegistro) AS UltimoRegistro
+FROM Clientes;
+        </code></pre>
+
+        <h3>4. Consultas Avanzadas</h3>
+        <p>El uso de técnicas avanzadas como subconsultas, joins y funciones analíticas permite resolver problemas complejos:</p>
+        <p><strong>Ejemplo práctico:</strong></p>
+        <pre><code>
+-- Subconsulta: Obtener clientes con correos únicos
+SELECT Nombre, Correo
+FROM Clientes
+WHERE Correo IN (
+    SELECT Correo FROM Clientes GROUP BY Correo HAVING COUNT(Correo) = 1
+);
+
+-- Join entre dos tablas
+SELECT Pedidos.PedidoID, Clientes.Nombre, Pedidos.Total
+FROM Pedidos
+INNER JOIN Clientes ON Pedidos.ClienteID = Clientes.ClienteID;
+
+-- Uso de funciones analíticas
+SELECT ClienteID, Nombre, SUM(Total) OVER (PARTITION BY ClienteID) AS TotalCompras
+FROM Pedidos;
+        </code></pre>
+
+        <h3>Conclusión</h3>
+        <p>El dominio del lenguaje SQL es esencial para cualquier administrador o desarrollador de bases de datos. Este módulo proporciona una base sólida para trabajar con datos de manera eficiente y profesional, desde tareas simples hasta consultas complejas y análisis avanzados.</p>
+    </div>
   
     <section class="mb-5">
       <h2 class="mb-3">Calendario</h2>

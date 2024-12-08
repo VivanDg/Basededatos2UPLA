@@ -228,6 +228,89 @@
         </div>
       </div>
     </section>
+
+    <!-- Módulo 4: Tablas, Índices y Vistas -->
+    <div class="module-4">
+        <h2>Tablas, Índices y Vistas</h2>
+        
+        <h3>1. Tablas y Vistas</h3>
+        <p>Las tablas y vistas son la base de cualquier base de datos relacional:</p>
+        <ul>
+            <li><strong>Tablas:</strong> Representan la estructura básica de almacenamiento de datos, organizados en filas y columnas.</li>
+            <li><strong>Vistas:</strong> Son consultas predefinidas que se almacenan en el servidor y actúan como tablas virtuales, mostrando datos de una o más tablas.</li>
+        </ul>
+        <p>En SQL Server, las tablas se crean utilizando el comando <code>CREATE TABLE</code>, mientras que las vistas se crean con <code>CREATE VIEW</code>.</p>
+        <p><strong>Ejemplo práctico:</strong></p>
+        <pre><code>
+-- Crear una tabla de productos
+CREATE TABLE Productos (
+    ID INT PRIMARY KEY,
+    Nombre NVARCHAR(100),
+    Precio DECIMAL(10, 2),
+    Stock INT
+);
+
+-- Crear una vista para productos con bajo inventario
+CREATE VIEW ProductosBajoStock AS
+SELECT Nombre, Precio, Stock
+FROM Productos
+WHERE Stock &lt; 10;
+        </code></pre>
+        <p>Las vistas son útiles para simplificar consultas complejas o restringir acceso a datos específicos.</p>
+
+        <h3>2. Índices</h3>
+        <p>Los índices mejoran el rendimiento de las consultas, facilitando la búsqueda y recuperación de datos:</p>
+        <ul>
+            <li><strong>Índices Clúster:</strong> Organizan físicamente los datos en disco y son únicos por tabla.</li>
+            <li><strong>Índices No Clúster:</strong> Crean un mapa separado que apunta a las ubicaciones de datos en la tabla.</li>
+        </ul>
+        <p><strong>Ejemplo práctico:</strong></p>
+        <pre><code>
+-- Crear un índice clúster en la columna ID
+CREATE CLUSTERED INDEX IDX_Productos_ID
+ON Productos (ID);
+
+-- Crear un índice no clúster en la columna Precio
+CREATE NONCLUSTERED INDEX IDX_Productos_Precio
+ON Productos (Precio);
+        </code></pre>
+        <p>Es importante analizar qué columnas indexar, ya que los índices también ocupan espacio y afectan el rendimiento de inserciones y actualizaciones.</p>
+
+        <h3>3. Restricciones</h3>
+        <p>Las restricciones garantizan la integridad de los datos almacenados:</p>
+        <ul>
+            <li><strong>PRIMARY KEY:</strong> Identifica de manera única cada fila en una tabla.</li>
+            <li><strong>FOREIGN KEY:</strong> Define relaciones entre tablas.</li>
+            <li><strong>CHECK:</strong> Valida condiciones específicas en los datos.</li>
+            <li><strong>UNIQUE:</strong> Asegura que los valores en una columna sean únicos.</li>
+        </ul>
+        <p><strong>Ejemplo práctico:</strong></p>
+        <pre><code>
+-- Agregar una restricción CHECK a la tabla Productos
+ALTER TABLE Productos
+ADD CONSTRAINT CHK_Precio CHECK (Precio &gt;= 0);
+
+-- Relacionar una tabla Pedidos con Productos
+CREATE TABLE Pedidos (
+    PedidoID INT PRIMARY KEY,
+    ProductoID INT,
+    Cantidad INT,
+    CONSTRAINT FK_Pedido_Producto FOREIGN KEY (ProductoID) REFERENCES Productos(ID)
+);
+        </code></pre>
+        <p>Las restricciones son clave para garantizar la calidad y consistencia de los datos en las bases de datos.</p>
+
+        <h3>4. Optimización</h3>
+        <p>La combinación de índices, vistas y restricciones contribuye a optimizar el desempeño de las bases de datos. Sin embargo, se deben seguir buenas prácticas como:</p>
+        <ul>
+            <li>Evitar índices redundantes que ocupen espacio innecesario.</li>
+            <li>Revisar las consultas más lentas mediante herramientas como el Query Execution Plan.</li>
+            <li>Utilizar vistas indexadas para mejorar el rendimiento de vistas complejas.</li>
+        </ul>
+
+        <h3>Conclusión</h3>
+        <p>La gestión de tablas, índices y vistas no solo permite estructurar datos de forma eficiente, sino que también garantiza un rendimiento óptimo y la integridad de la información almacenada. Este módulo proporciona las herramientas necesarias para crear y mantener bases de datos robustas y escalables.</p>
+    </div>
   
     <section class="mb-5">
       <h2 class="mb-3">Calendario</h2>

@@ -228,7 +228,99 @@
         </div>
       </div>
     </section>
+    <section class="mb-5">
+      <h2>Módulo 10: Mantenimiento de la Base de Datos</h2>
   
+      <h3>1. Optimización de la Base de Datos</h3>
+      <p>
+          El mantenimiento regular asegura un rendimiento óptimo en SQL Server. Algunas prácticas clave incluyen:
+      </p>
+      <ul>
+          <li><strong>Reducción de archivos:</strong> Limpieza y compactación de bases de datos para liberar espacio en disco y mejorar la eficiencia.</li>
+          <li><strong>Configuración de la superficie:</strong> Limitación de características habilitadas para reducir el consumo de recursos y minimizar vulnerabilidades.</li>
+          <li><strong>Planificación de mantenimiento:</strong> Configuración de tareas automáticas para reorganizar índices, actualizar estadísticas y limpiar registros innecesarios.</li>
+      </ul>
+      <p><strong>Ejemplo práctico: Reorganizar índices</strong></p>
+      <pre><code>
+  -- Reorganizar índices en una tabla específica
+  ALTER INDEX ALL ON MiTabla 
+  REORGANIZE;
+      </code></pre>
+  
+      <h3>2. Monitorización</h3>
+      <p>
+          Supervisar la actividad del servidor ayuda a detectar problemas antes de que afecten el rendimiento:
+      </p>
+      <ul>
+          <li><strong>Monitor de actividad:</strong> Identifica consultas lentas, bloqueos y el consumo de recursos.</li>
+          <li><strong>Registro de transacciones:</strong> Rastrea cambios y eventos en la base de datos para diagnosticar inconsistencias.</li>
+          <li><strong>Plan de ejecución:</strong> Analiza el rendimiento de las consultas SQL para optimizarlas.</li>
+      </ul>
+      <p><strong>Ejemplo práctico: Consultar sesiones activas</strong></p>
+      <pre><code>
+  -- Consultar sesiones activas en el servidor
+  SELECT 
+      session_id, 
+      status, 
+      login_name, 
+      host_name, 
+      program_name 
+  FROM sys.dm_exec_sessions;
+      </code></pre>
+      <p><strong>Consejo:</strong> Usa el Profiler de SQL Server para rastrear y analizar eventos en tiempo real.</p>
+  
+      <h3>3. Replicación de Datos</h3>
+      <p>
+          La replicación asegura la disponibilidad y consistencia de los datos entre servidores. Tipos de replicación comunes:
+      </p>
+      <ul>
+          <li><strong>Replicación de instantánea:</strong> Crea y distribuye una copia completa de los datos en un momento específico.</li>
+          <li><strong>Replicación transaccional:</strong> Sincroniza continuamente los cambios desde el servidor principal al secundario.</li>
+          <li><strong>Replicación de mezcla:</strong> Permite actualizaciones bidireccionales entre servidores, ideal para datos distribuidos.</li>
+      </ul>
+      <p><strong>Ejemplo práctico: Configurar replicación transaccional</strong></p>
+      <pre><code>
+  -- Crear una publicación para replicación transaccional
+  EXEC sp_addpublication 
+      @publication = 'PublicacionTransaccional',
+      @publication_type = N'transactional',
+      @status = N'active';
+      </code></pre>
+  
+      <h3>4. Estrategias de Mantenimiento</h3>
+      <p>
+          Implementar una estrategia estructurada de mantenimiento reduce riesgos y optimiza recursos. Considera:
+      </p>
+      <ul>
+          <li>Automatizar tareas repetitivas con el Agente de SQL Server.</li>
+          <li>Configurar alertas para monitorear el crecimiento de archivos y evitar problemas de espacio.</li>
+          <li>Documentar el plan de mantenimiento y realizar simulacros de recuperación para garantizar su eficacia.</li>
+      </ul>
+      <p>
+          <strong>Consejo:</strong> Realiza auditorías regulares para identificar configuraciones obsoletas o ineficientes.
+      </p>
+  
+      <h3>5. Ejemplo Completo de Tareas de Mantenimiento</h3>
+      <p>
+          Configurar un plan de mantenimiento completo que incluya respaldo, reorganización de índices y limpieza:
+      </p>
+      <pre><code>
+  -- Plan de mantenimiento: Copia de seguridad, limpieza y reorganización
+  BACKUP DATABASE MiBaseDeDatos 
+  TO DISK = 'C:\Respaldos\MiBaseDeDatos_Completa.bak';
+  
+  ALTER INDEX ALL ON MiTabla 
+  REBUILD WITH (ONLINE = ON);
+  
+  DBCC SHRINKDATABASE (MiBaseDeDatos);
+      </code></pre>
+  
+      <h3>Conclusión</h3>
+      <p>
+          Un mantenimiento adecuado garantiza un servidor SQL Server eficiente y confiable. 
+          Monitorear regularmente, automatizar tareas y configurar estrategias de replicación son pilares para mantener una base de datos robusta.
+      </p>
+  </section>
     <section class="mb-5">
       <h2 class="mb-3">Calendario</h2>
       <table class="table table-striped">

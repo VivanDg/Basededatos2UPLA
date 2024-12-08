@@ -228,7 +228,120 @@
         </div>
       </div>
     </section>
-  
+    <section class="mb-5">
+        <h2>Módulo 8: Agente de SQL Server</h2>
+    
+        <h3>1. Introducción y Configuración</h3>
+        <p>
+            El Agente de SQL Server es una herramienta que permite la automatización de tareas repetitivas y críticas, como copias de seguridad, limpieza de bases de datos y envío de alertas. 
+            Facilita la administración del sistema al ejecutar estas tareas de manera programada y confiable.
+        </p>
+        <p><strong>Habilitación del Agente:</strong></p>
+        <ul>
+            <li>Asegúrate de que el servicio del Agente de SQL Server esté activo en el administrador de servicios de Windows.</li>
+            <li>Desde SQL Server Management Studio (SSMS), verifica que el nodo "SQL Server Agent" esté habilitado en el Explorador de Objetos.</li>
+        </ul>
+    
+        <h3>2. Creación de Trabajos</h3>
+        <p>
+            Un trabajo (job) en el Agente de SQL Server consiste en una serie de pasos definidos que se ejecutan en un horario programado. 
+            Esto es útil para tareas como la optimización de índices, generación de reportes y ejecución de scripts.
+        </p>
+        <p><strong>Ejemplo práctico: Crear un trabajo que respalde una base de datos diariamente</strong></p>
+        <pre><code>
+    -- Paso 1: Crear un trabajo
+    USE msdb;
+    EXEC sp_add_job 
+        @job_name = 'RespaldoDiario', 
+        @enabled = 1, 
+        @description = 'Tarea para realizar un respaldo diario de la base de datos.', 
+        @notify_level_eventlog = 2;
+    
+    -- Paso 2: Agregar un paso al trabajo
+    EXEC sp_add_jobstep 
+        @job_name = 'RespaldoDiario',
+        @step_name = 'RespaldarBaseDeDatos',
+        @subsystem = 'TSQL',
+        @command = 'BACKUP DATABASE MiBaseDeDatos TO DISK = ''C:\Respaldos\MiBaseDeDatos.bak''',
+        @retry_attempts = 3;
+    
+    -- Paso 3: Configurar el horario del trabajo
+    EXEC sp_add_jobschedule 
+        @job_name = 'RespaldoDiario',
+        @name = 'HorarioDiario',
+        @freq_type = 4, -- Diario
+        @freq_interval = 1,
+        @active_start_time = 230000; -- 11:00 PM
+    
+    -- Paso 4: Asignar el operador que recibirá notificaciones
+    EXEC sp_add_jobserver 
+        @job_name = 'RespaldoDiario', 
+        @server_name = @@SERVERNAME;
+            </code></pre>
+    
+        <h3>3. Manejo de Operadores y Alertas</h3>
+        <p>
+            Los operadores son contactos que reciben notificaciones por correo electrónico o mensajes sobre el estado de los trabajos o alertas generadas en el sistema. 
+            Las alertas se configuran para responder a eventos específicos, como errores o cambios en el rendimiento del servidor.
+        </p>
+        <p><strong>Ejemplo práctico: Configurar un operador y una alerta</strong></p>
+        <pre><code>
+    -- Crear un operador
+    EXEC msdb.dbo.sp_add_operator 
+        @name = 'AdministradorDB',
+        @enabled = 1,
+        @email_address = 'admin@empresa.com';
+    
+    -- Crear una alerta para errores severos
+    EXEC msdb.dbo.sp_add_alert 
+        @name = 'ErrorSevero',
+        @message_id = 823, -- Error relacionado con corrupción en disco
+        @severity = 16, -- Gravedad alta
+        @notification_message = 'Error severo detectado. Requiere atención inmediata.',
+        @job_name = 'RespaldoDiario',
+        @delay_between_responses = 3600; -- 1 hora entre alertas
+    
+    -- Asociar la alerta con el operador
+    EXEC msdb.dbo.sp_add_notification 
+        @alert_name = 'ErrorSevero',
+        @operator_name = 'AdministradorDB',
+        @notification_method = 1; -- Notificación por correo electrónico
+            </code></pre>
+    
+        <h3>4. Supervisión y Registro de Trabajos</h3>
+        <p>
+            SQL Server proporciona herramientas para monitorear los trabajos y registrar sus resultados en detalle. 
+            Esto ayuda a identificar fallas y optimizar la ejecución de tareas.
+        </p>
+        <p><strong>Supervisión de trabajos:</strong></p>
+        <ul>
+            <li>Usa el Explorador de Objetos en SSMS para ver el historial de ejecuciones y resultados de los trabajos.</li>
+            <li>Configura registros en archivos o tablas personalizadas para análisis detallado.</li>
+        </ul>
+        <p><strong>Ejemplo práctico: Configurar el registro de un trabajo</strong></p>
+        <pre><code>
+    -- Habilitar el registro de resultados en una tabla
+    USE msdb;
+    EXEC sp_update_job 
+        @job_name = 'RespaldoDiario',
+        @notify_level_eventlog = 3, -- Registrar errores y éxitos
+        @delete_level = 0; -- No borrar el historial automáticamente
+            </code></pre>
+    
+        <h3>5. Mejores Prácticas</h3>
+        <ul>
+            <li>Configura horarios de trabajo fuera de horas pico para minimizar el impacto en el rendimiento del sistema.</li>
+            <li>Usa operadores para recibir alertas críticas en tiempo real.</li>
+            <li>Monitorea regularmente el historial de trabajos para identificar problemas recurrentes.</li>
+            <li>Realiza pruebas de trabajos nuevos en entornos de desarrollo antes de implementarlos en producción.</li>
+        </ul>
+    
+        <h3>Conclusión</h3>
+        <p>
+            El Agente de SQL Server es una herramienta poderosa para automatizar la administración de bases de datos y tareas de mantenimiento. 
+            Configurar trabajos, operadores y alertas adecuadamente mejora la eficiencia del sistema y asegura una respuesta rápida ante incidentes.
+        </p>
+    </section>
     <section class="mb-5">
       <h2 class="mb-3">Calendario</h2>
       <table class="table table-striped">

@@ -228,6 +228,115 @@
         </div>
       </div>
     </section>
+    
+    <section class="mb-5">
+        <h2>Módulo 7: Seguridad en SQL Server 2008</h2>
+    
+        <h3>1. Modos de Seguridad</h3>
+        <p>
+            SQL Server 2008 soporta dos modos principales de autenticación para proteger el acceso a la base de datos:
+        </p>
+        <ul>
+            <li><strong>Autenticación basada en Windows:</strong> Requiere que los usuarios tengan una cuenta válida en el dominio o equipo local. Es más segura porque aprovecha los mecanismos de seguridad del sistema operativo.</li>
+            <li><strong>Autenticación basada en SQL Server:</strong> Utiliza nombres de usuario y contraseñas definidos dentro del servidor SQL. Es útil en entornos donde no se dispone de Active Directory.</li>
+        </ul>
+        <p><strong>Configuración de modos de autenticación:</strong></p>
+        <pre><code>
+    -- Cambiar el modo de autenticación a mixta (Windows y SQL Server)
+    EXEC sp_configure 'show advanced options', 1;
+    RECONFIGURE;
+    EXEC sp_configure 'Authentication Mode', 2; -- 1 = Solo Windows, 2 = Mixto
+    RECONFIGURE;
+            </code></pre>
+    
+        <h3>2. Gestión de Usuarios y Roles</h3>
+        <p>
+            SQL Server permite crear usuarios y asignarles permisos específicos a través de roles predeterminados o personalizados. 
+            Esto asegura que cada usuario tenga acceso solo a las funciones necesarias.
+        </p>
+        <p><strong>Ejemplo práctico:</strong></p>
+        <pre><code>
+    -- Crear un usuario basado en SQL Server con una contraseña segura
+    CREATE LOGIN MiUsuario
+    WITH PASSWORD = 'ContraseñaSegura123!';
+    
+    -- Crear un usuario dentro de una base de datos específica
+    USE MiBaseDeDatos;
+    CREATE USER MiUsuario
+    FOR LOGIN MiUsuario;
+    
+    -- Asignar roles y permisos
+    EXEC sp_addrolemember 'db_datareader', 'MiUsuario'; -- Permite leer datos
+    EXEC sp_addrolemember 'db_datawriter', 'MiUsuario'; -- Permite modificar datos
+            </code></pre>
+    
+        <h3>3. Delegación de Permisos con EXECUTE AS</h3>
+        <p>
+            La instrucción <strong>EXECUTE AS</strong> permite ejecutar un bloque de código bajo el contexto de otro usuario, otorgando permisos temporales. 
+            Es útil para delegar tareas específicas sin exponer permisos permanentes.
+        </p>
+        <p><strong>Ejemplo práctico:</strong></p>
+        <pre><code>
+    -- Crear un procedimiento almacenado con permisos delegados
+    CREATE PROCEDURE ConsultarInformacionConfidencial
+    WITH EXECUTE AS 'Administrador'
+    AS
+    BEGIN
+        SELECT * 
+        FROM InformacionConfidencial;
+    END;
+    
+    -- Ejecutar el procedimiento como un usuario con permisos limitados
+    EXEC ConsultarInformacionConfidencial;
+            </code></pre>
+    
+        <h3>4. Principales Prácticas de Seguridad</h3>
+        <ul>
+            <li><strong>Usar contraseñas seguras:</strong> Asegurarse de que las contraseñas de los usuarios sean complejas y difíciles de adivinar.</li>
+            <li><strong>Limitar permisos:</strong> Asignar únicamente los permisos necesarios para minimizar riesgos.</li>
+            <li><strong>Habilitar encriptación:</strong> Proteger datos sensibles mediante el cifrado de comunicaciones (SSL/TLS) y almacenamiento (Transparent Data Encryption).</li>
+            <li><strong>Auditoría de accesos:</strong> Configurar auditorías para registrar los accesos y actividades importantes en la base de datos.</li>
+        </ul>
+    
+        <h3>5. Auditoría de Seguridad</h3>
+        <p>
+            SQL Server 2008 incluye herramientas de auditoría para monitorear actividades, detectar accesos no autorizados y generar reportes detallados.
+        </p>
+        <p><strong>Ejemplo práctico:</strong></p>
+        <pre><code>
+    -- Crear una auditoría para registrar accesos a la base de datos
+    CREATE SERVER AUDIT MiAuditoria
+    TO FILE (FILEPATH = 'C:\Auditorias\MiAuditoria.sqlaudit');
+    
+    -- Crear una especificación de auditoría para monitorizar inicio de sesión
+    CREATE SERVER AUDIT SPECIFICATION InicioSesion
+    FOR SERVER AUDIT MiAuditoria
+    ADD (FAILED_LOGIN_GROUP);
+    
+    -- Activar la auditoría y la especificación
+    ALTER SERVER AUDIT MiAuditoria WITH (STATE = ON);
+    ALTER SERVER AUDIT SPECIFICATION InicioSesion WITH (STATE = ON);
+            </code></pre>
+    
+        <h3>6. Configuración de Políticas de Contraseñas</h3>
+        <p>
+            SQL Server permite aplicar políticas de contraseñas similares a las de Windows para usuarios autenticados por SQL Server, mejorando la seguridad.
+        </p>
+        <p><strong>Ejemplo práctico:</strong></p>
+        <pre><code>
+    -- Crear un usuario con políticas de contraseñas habilitadas
+    CREATE LOGIN UsuarioSeguro
+    WITH PASSWORD = 'ContraseñaFuerte#2024',
+    CHECK_POLICY = ON, -- Aplica políticas de complejidad
+    CHECK_EXPIRATION = ON; -- Habilita vencimiento de contraseñas
+            </code></pre>
+    
+        <h3>Conclusión</h3>
+        <p>
+            La seguridad en SQL Server 2008 es un componente esencial para proteger datos sensibles y asegurar que solo usuarios autorizados puedan acceder o manipular información. 
+            Implementar políticas de seguridad robustas, gestionar roles y realizar auditorías periódicas son pasos clave hacia una base de datos segura.
+        </p>
+    </section>
   
     <section class="mb-5">
       <h2 class="mb-3">Calendario</h2>

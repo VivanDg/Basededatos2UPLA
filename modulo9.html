@@ -228,7 +228,96 @@
         </div>
       </div>
     </section>
-  
+    <section class="mb-5">
+        <h2>Módulo 9: Copias de Seguridad y Restauración</h2>
+    
+        <h3>1. Tipos de Copias de Seguridad</h3>
+        <p>
+            SQL Server ofrece varios tipos de copias de seguridad para proteger los datos y minimizar la pérdida en caso de fallos:
+        </p>
+        <ul>
+            <li><strong>Copia completa:</strong> Realiza un respaldo completo de toda la base de datos. Es la base para cualquier estrategia de recuperación.</li>
+            <li><strong>Copia diferencial:</strong> Almacena solo los cambios realizados desde la última copia completa, ocupando menos espacio y tiempo.</li>
+            <li><strong>Copia del registro de transacciones:</strong> Registra todas las transacciones desde la última copia del registro, permitiendo una recuperación granular.</li>
+        </ul>
+        <p><strong>Ejemplo práctico: Realizar una copia completa</strong></p>
+        <pre><code>
+    -- Crear una copia completa de la base de datos
+    BACKUP DATABASE MiBaseDeDatos 
+    TO DISK = 'C:\Respaldos\MiBaseDeDatos_Completa.bak'
+    WITH FORMAT, MEDIANAME = 'Media1', NAME = 'CopiaCompleta';
+        </code></pre>
+    
+        <h3>2. Modelos de Recuperación</h3>
+        <p>
+            Los modelos de recuperación determinan cómo se almacenan los datos en el registro de transacciones y afectan las opciones de restauración:
+        </p>
+        <ul>
+            <li><strong>Modelo Simple:</strong> No guarda el historial de transacciones, por lo que es ideal para bases de datos no críticas. No permite restauración a un punto en el tiempo.</li>
+            <li><strong>Modelo Completo:</strong> Registra todas las transacciones, permitiendo restauraciones detalladas. Requiere un manejo regular de los registros.</li>
+            <li><strong>Modelo de Registro Masivo:</strong> Optimizado para operaciones masivas, como cargas de datos. Consume menos espacio pero limita la recuperación detallada.</li>
+        </ul>
+        <p><strong>Ejemplo práctico: Configurar el modelo de recuperación</strong></p>
+        <pre><code>
+    -- Cambiar el modelo de recuperación a Completo
+    ALTER DATABASE MiBaseDeDatos 
+    SET RECOVERY FULL;
+        </code></pre>
+    
+        <h3>3. Uso Práctico: Copias y Restauraciones</h3>
+        <p>
+            SQL Server Management Studio (SSMS) proporciona una interfaz gráfica para realizar copias de seguridad y restauraciones fácilmente. También se puede usar Transact-SQL para mayor control.
+        </p>
+        <p><strong>Ejemplo práctico: Restaurar una copia completa</strong></p>
+        <pre><code>
+    -- Restaurar una copia completa de la base de datos
+    RESTORE DATABASE MiBaseDeDatos 
+    FROM DISK = 'C:\Respaldos\MiBaseDeDatos_Completa.bak'
+    WITH REPLACE, 
+    MOVE 'MiBaseDeDatos_Data' TO 'C:\BasesDeDatos\MiBaseDeDatos.mdf',
+    MOVE 'MiBaseDeDatos_Log' TO 'C:\BasesDeDatos\MiBaseDeDatos.ldf';
+        </code></pre>
+    
+        <h3>4. Estrategias de Respaldo</h3>
+        <p>Es crucial definir una estrategia basada en las necesidades de tu organización:</p>
+        <ul>
+            <li>Realizar copias completas semanales.</li>
+            <li>Hacer copias diferenciales diarias para minimizar los tiempos de respaldo.</li>
+            <li>Configurar copias del registro de transacciones cada hora para escenarios críticos.</li>
+        </ul>
+        <p>
+            <strong>Consejo:</strong> Almacena copias en ubicaciones externas o en la nube para proteger los datos ante desastres físicos.
+        </p>
+    
+        <h3>5. Recuperación a un Punto en el Tiempo</h3>
+        <p>
+            Esta técnica permite restaurar la base de datos a un momento exacto utilizando las copias del registro de transacciones. Es ideal para revertir errores accidentales.
+        </p>
+        <p><strong>Ejemplo práctico: Restaurar a un punto en el tiempo</strong></p>
+        <pre><code>
+    -- Restaurar la base de datos a un punto específico
+    RESTORE DATABASE MiBaseDeDatos 
+    FROM DISK = 'C:\Respaldos\MiBaseDeDatos_Completa.bak' 
+    WITH NORECOVERY;
+    
+    RESTORE LOG MiBaseDeDatos 
+    FROM DISK = 'C:\Respaldos\MiBaseDeDatos_Log.trn' 
+    WITH STOPAT = '2024-12-01T10:15:00', RECOVERY;
+        </code></pre>
+    
+        <h3>6. Mejores Prácticas</h3>
+        <ul>
+            <li>Automatiza las copias con el Agente de SQL Server para garantizar consistencia.</li>
+            <li>Verifica regularmente la integridad de las copias usando el comando <code>RESTORE VERIFYONLY</code>.</li>
+            <li>Documenta los procedimientos de recuperación y realiza simulacros periódicos para validar la estrategia.</li>
+        </ul>
+    
+        <h3>Conclusión</h3>
+        <p>
+            Las copias de seguridad y restauración son fundamentales para proteger los datos y asegurar la continuidad operativa. 
+            Implementar una estrategia robusta y entender las opciones disponibles permite gestionar riesgos y minimizar tiempos de inactividad.
+        </p>
+    </section>
     <section class="mb-5">
       <h2 class="mb-3">Calendario</h2>
       <table class="table table-striped">
