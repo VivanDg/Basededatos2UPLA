@@ -204,102 +204,223 @@
         </svg>
         Volver
       </a>
-      <h1 class="text-center flex-grow-1">Semana de Clases 10</h1>
+      <h1 class="text-center flex-grow-1">Semana de Clases 7</h1>
     </header>
   
     <section class="mb-5">
       <h2 class="mb-3">Temas Principales</h2>
       <ul class="list-group">
-        <li class="list-group-item">Encriptación de datos en SQL SERVER</li>
+        <li class="list-group-item">Administración de Base de Datos</li>
       </ul>
     </section>
-  
+    
     <section class="mb-5">
       <h2 class="mb-3">Tareas y Actividades</h2>
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Encriptación</h5>
+          <h5 class="card-title">Ejercicios</h5>
           <p class="card-text">
-            La encriptación es un proceso mediante el cual se transforma información legible, conocida como texto plano, en un formato ilegible, llamado texto cifrado, utilizando algoritmos matemáticos y una clave de encriptación. Este proceso asegura que solo las personas con acceso a la clave puedan descifrar la información y leerla. Es una de las técnicas fundamentales para garantizar la seguridad de los datos.
+            Enunciado 01
             <p class="card-text">
-                <li>¿Por qué se utiliza la encriptación?<p></p></li>
-                Confidencialidad: Protege la información de ser leída por personas no autorizadas.<p></p>
-                Integridad: Ayuda a garantizar que la información no ha sido alterada durante la transmisión o el almacenamiento.<p></p>
-                Autenticación: Permite verificar la identidad del remitente o receptor de la información.<p></p>
-                Seguridad en comunicaciones: Es esencial en aplicaciones como correos electrónicos, transferencias bancarias, y mensajería instantánea.
+              De acuerdo con la base de datos implementada (mínimo 100 registros), utilice los
+              DBMS Microsoft SQL Server/MySQL, o un servidor de la nube como Microsoft Azure
+              o Google FireBase. Explique qué problema soluciona su base de datos y responda las
+              siguientes preguntas:
             </p>  
-              <li>Tipos de encriptación<p></p></li>
-                
-              <li>  Encriptación simétrica:<p></p></li>
-
-                Utiliza una sola clave para encriptar y desencriptar los datos.<p></p>
-                Ejemplo: AES (Advanced Encryption Standard).<p></p>
-                Es rápida pero menos segura si la clave se comparte de manera insegura.<p></p>
-                <li>  Encriptación asimétrica:<p></p></li>
-
-                Usa un par de claves: una clave pública para encriptar y una clave privada para desencriptar.<p></p>
-                Ejemplo: RSA.<p></p>
-                Es más segura para la comunicación entre dos partes desconocidas.<p></p>
-                <li>Encriptación hash (no reversible):<p></p></li>
-
-                Transforma los datos en un valor único (hash) que no puede revertirse al original.<p></p>
-                Ejemplo: SHA-256.<p></p>
-                Se utiliza para proteger contraseñas y verificar integridad.<p></p>
-                Ejemplo práctico<p></p>
-                Supongamos que tienes un mensaje: "Hola Mundo".<p></p>
-
-                Texto plano: Hola Mundo.<p></p>
-                Encriptado con AES (usando una clave secreta): BXY3jk29Vm8LKFg0.<p></p>
-                Solo quien tenga la clave podrá desencriptar y leer el mensaje original.<p></p>
-                Usos comunes<p></p>
-                Seguridad en internet: HTTPS utiliza encriptación para proteger la comunicación entre navegadores y sitios web.<p></p>
-                Protección de datos personales: Los datos sensibles, como contraseñas y números de tarjetas, son encriptados antes de ser almacenados.<p></p>
-                Mensajería instantánea: Aplicaciones como WhatsApp y Signal usan encriptación de extremo a extremo para proteger mensajes.<p></p>
+          </p>
+          <p class="card-text">
+            <p class="card-text">
+              <ul>
+              <li><strong>1. Implemente y explique un Script para crear una vista para crear utilizando tres
+              tablas</strong></li>
+              <li><strong>2. Implemente y explique un Script para crear un procedimiento almacenado para
+              insertar datos a su base de datos.</strong></li>
+              <li><strong>3. Implemente y explique un Script para crear un procedimiento almacenado para
+              eliminar datos a su base de datos</strong></li>
+              <li><strong>4. Implemente y explique un Script para crear un procedimiento almacenado para
+              actualizar datos a su base de datos</strong></li>
+              <li><strong>5. Implemente y explique un Script para crear un procedimiento almacenado para
+              realizar cálculos matemáticos de una columna de su base de datos.</strong></li>
+              <li><strong>6. Implemente y explique un Script para crear un disparador para ingresar un
+              registro automáticamente en una tabla de su base de datos.</strong></li>
+              <li><strong>7. Implemente y explique un Script para crear un disparador para elimine un
+              registro automáticamente en una tabla de su base de datos.</strong></li>
+              <li><strong>8. Implemente y explique un Script para crear un disparador para actualice un
+              registro automáticamente en una tabla de su base de datos.</strong></li>
+              <li><strong>9. Implemente y explique un Script para crear un disparador para verificar el
+              control de datos (Ejemplo: que la nota ingresada este entre 0 y 20)</strong></li>
+              <li><strong>10. Utilizando Script Crear 03 usuarios con nombres de sus compañeros y uno suyo</strong></li>
+              <li><strong>11. Utilizando un script, copiar la base de datos (creada anteriormente) y compartir
+              en cada uno de los usuarios</strong></li>
+              <li><strong>12. Utilizando un script, generar una copia de seguridad de la base de datos y
+              compartir a cada uno de los usuarios</strong></li>
+              <li><strong>13. Utilizando un script, encriptar una de las tablas para que no se puedan ver los
+              datos</strong></li>
+              <li><strong>14. Utilizando un script, aplique la seguridad a nivel de columna, restringiendo el
+              acceso a la columna que contiene la clave primaria de una de las tablas de su
+              base de datos</strong></li>
+              <li><strong>15. Utilizando un script, implementé seguridad a nivel de columna restringiendo el
+              acceso a una de las columnas de una tabla.</strong></li>
+              <li><strong>16. Utilizando un script, realice el cifrado transparente de datos (TDE) para una las
+              tablas.</strong></li>
+              <li><strong>17. Utilizando un script, configure el usuario con el nombre de su compañero para
+              otorgar permisos de SELECT, INSERT, UPDATE y DELETE en la base de datos.</strong></li>
+              <li><strong>18. Utilizando un Scripts realice la validación y filtración de entradas del usuario para
+              evitar caracteres maliciosos (Ejemplo: ',--, ;)</strong></li>
+              <li><strong>19. Realice un script que verifiquen que los datos ingresados cumplan con formatos
+              esperados (ej.: números en lugar de texto, longitud máxima).</strong></li>
+              <li><strong>20. Utilizando un script, configure la auditoría para el seguimiento y registro de
+              acciones en la base de datos</strong></li>
+              <li><strong>21. Utilizando un script, configure de la memoria y el disco duro</strong></li>
+              <li><strong>22. Utilizando un script, genere una copia de seguridad de la base de datos</strong></li>
+              <li><strong>23. Realice un script para programar backups automatizados de su base de datos</strong></li>
+              <li><strong>24. Utilizando un script, genere la restauración de la base de datos</strong></li>
+              <li><strong>25. Utilizando un script, cree un espejo de la base de datos</strong></li>
+              <li><strong>26. Utilizando un script, para enviar datos a la base de datos espejo creada</strong></li>
+              <li><strong>27. Utilizando un script, de permiso a un usuario por un determinado tiempo</strong></li>
+              <li><strong>28. Utilizando un script, realice la replicación de bases de datos</strong></li>
+              <li><strong>29. Explique que es Always On Availability Groups</strong></li>
+              <li><strong>30. Explique que es Log Shipping</strong></li>
+            </ul>
+            </p>   
           </p>
         </div>
       </div>
     </section>
-    <section class="mb-5">
 <section class="mb-5">
   <h2 class="mb-3">Tareas y Actividades</h2>
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">Encriptación</h5>
-
+      <h5 class="card-title">Gráficos</h5>
       <!-- Imagen 1 -->
       <div class="mb-4">
-        <img src="e1.png" alt="Descripción de la imagen 1" class="img-fluid rounded">
+        <img src="sa1.png"Descripción de la imagen 1" class="img-fluid rounded">
       </div>
 
       <!-- Imagen 2 -->
       <div class="mb-4">
-        <img src="e2.png" alt="Descripción de la imagen 2" class="img-fluid rounded">
+        <img src="sa2.png" alt="Descripción de la imagen 2" class="img-fluid rounded">
       </div>
-
       <!-- Imagen 3 -->
       <div class="mb-4">
-        <img src="e3.png" alt="Descripción de la imagen 3" class="img-fluid rounded">
+        <img src="sa3.png" alt="Descripción de la imagen 1" class="img-fluid rounded">
       </div>
 
       <!-- Imagen 4 -->
       <div class="mb-4">
-        <img src="e4.png" alt="Descripción de la imagen 3" class="img-fluid rounded">
+        <img src="sa4.png" alt="Descripción de la imagen 2" class="img-fluid rounded">
+      </div>
+      <!-- Imagen 5 -->
+      <div class="mb-4">
+        <img src="sa5.png" alt="Descripción de la imagen 1" class="img-fluid rounded">
       </div>
 
+      <!-- Imagen 6 -->
       <div class="mb-4">
-        <img src="e6.png" alt="Descripción de la imagen 3" class="img-fluid rounded">
+        <img src="sa6.png" alt="Descripción de la imagen 2" class="img-fluid rounded">
+      </div>
+      <!-- Imagen 7 -->
+      <div class="mb-4">
+        <img src="sa7.png" alt="Descripción de la imagen 1" class="img-fluid rounded">
       </div>
 
+      <!-- Imagen 8 -->
       <div class="mb-4">
-        <img src="e7.png" alt="Descripción de la imagen 3" class="img-fluid rounded">
+        <img src="sa8.png" alt="Descripción de la imagen 2" class="img-fluid rounded">
+      </div>
+      <!-- Imagen 9 -->
+      <div class="mb-4">
+        <img src="sa9.png" alt="Descripción de la imagen 1" class="img-fluid rounded">
       </div>
 
+      <!-- Imagen 10 -->
       <div class="mb-4">
-        <img src="e8.png" alt="Descripción de la imagen 3" class="img-fluid rounded">
+        <img src="sa10.png" alt="Descripción de la imagen 2" class="img-fluid rounded">
+      </div>
+      <!-- Imagen 11 -->
+      <div class="mb-4">
+        <img src="sa11.png" alt="Descripción de la imagen 1" class="img-fluid rounded">
       </div>
 
+      <!-- Imagen 12 -->
       <div class="mb-4">
-        <img src="e5 (1).png" alt="Descripción de la imagen 3" class="img-fluid rounded">
+        <img src="sa12.png" alt="Descripción de la imagen 2" class="img-fluid rounded">
+      </div>
+      <!-- Imagen 13 -->
+      <div class="mb-4">
+        <img src="sa13.png" alt="Descripción de la imagen 1" class="img-fluid rounded">
+      </div>
+
+      <!-- Imagen 14 -->
+      <div class="mb-4">
+        <img src="sa14.png" alt="Descripción de la imagen 2" class="img-fluid rounded">
+      </div>
+      <!-- Imagen 15 -->
+      <div class="mb-4">
+        <img src="sa15.png" alt="Descripción de la imagen 1" class="img-fluid rounded">
+      </div>
+
+      <!-- Imagen 16 -->
+      <div class="mb-4">
+        <img src="sa16.png" alt="Descripción de la imagen 2" class="img-fluid rounded">
+      </div>
+      <!-- Imagen 17 -->
+      <div class="mb-4">
+        <img src="sa17.png" alt="Descripción de la imagen 1" class="img-fluid rounded">
+      </div>
+
+      <!-- Imagen 18 -->
+      <div class="mb-4">
+        <img src="sa18.png" alt="Descripción de la imagen 2" class="img-fluid rounded">
+      </div>
+      <!-- Imagen 19 -->
+      <div class="mb-4">
+        <img src="sa19.png" alt="Descripción de la imagen 1" class="img-fluid rounded">
+      </div>
+
+      <!-- Imagen 20 -->
+      <div class="mb-4">
+        <img src="sa20.png" alt="Descripción de la imagen 2" class="img-fluid rounded">
+      </div>
+      <!-- Imagen 21 -->
+      <div class="mb-4">
+        <img src="sa21.png" alt="Descripción de la imagen 1" class="img-fluid rounded">
+      </div>
+
+      <!-- Imagen 22 -->
+      <div class="mb-4">
+        <img src="sa22.png" alt="Descripción de la imagen 2" class="img-fluid rounded">
+      </div>
+      <!-- Imagen 23 -->
+      <div class="mb-4">
+        <img src="sa23.png" alt="Descripción de la imagen 1" class="img-fluid rounded">
+      </div>
+
+      <!-- Imagen 24 -->
+      <div class="mb-4">
+        <img src="sa24.png" alt="Descripción de la imagen 2" class="img-fluid rounded">
+      </div>
+      <!-- Imagen 25 -->
+      <div class="mb-4">
+        <img src="sa25.png" alt="Descripción de la imagen 1" class="img-fluid rounded">
+      </div>
+
+      <!-- Imagen 26 -->
+      <div class="mb-4">
+        <img src="sa26.png" alt="Descripción de la imagen 2" class="img-fluid rounded">
+      </div>
+      <!-- Imagen 27 -->
+      <div class="mb-4">
+        <img src="sa27.png" alt="Descripción de la imagen 2" class="img-fluid rounded">
+      </div>
+      <!-- Imagen 28 -->
+      <div class="mb-4">
+        <img src="sa28.png" alt="Descripción de la imagen 1" class="img-fluid rounded">
+      </div>
+
+      <!-- Imagen 29 -->
+      <div class="mb-4">
+        <img src="sa29.png" alt="Descripción de la imagen 2" class="img-fluid rounded">
       </div>
     </div>
   </div>
