@@ -204,13 +204,13 @@
         </svg>
         Volver
       </a>
-      <h1 class="text-center flex-grow-1">Semana de Clases 10</h1>
+      <h1 class="text-center flex-grow-1">Semana de Clases 3</h1>
     </header>
   
     <section class="mb-5">
       <h2 class="mb-3">Temas Principales</h2>
       <ul class="list-group">
-        <li class="list-group-item">Encriptación de datos en SQL SERVER</li>
+        <li class="list-group-item">Modelo Lógico</li>
       </ul>
     </section>
   
@@ -218,43 +218,64 @@
       <h2 class="mb-3">Tareas y Actividades</h2>
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Encriptación</h5>
+          <h5 class="card-title">Ejercicios</h5>
           <p class="card-text">
-            La encriptación es un proceso mediante el cual se transforma información legible, conocida como texto plano, en un formato ilegible, llamado texto cifrado, utilizando algoritmos matemáticos y una clave de encriptación. Este proceso asegura que solo las personas con acceso a la clave puedan descifrar la información y leerla. Es una de las técnicas fundamentales para garantizar la seguridad de los datos.
+            <h1>Modelo Relacional - Ejercicio 01 y 02</h1>
             <p class="card-text">
-                <li>¿Por qué se utiliza la encriptación?<p></p></li>
-                Confidencialidad: Protege la información de ser leída por personas no autorizadas.<p></p>
-                Integridad: Ayuda a garantizar que la información no ha sido alterada durante la transmisión o el almacenamiento.<p></p>
-                Autenticación: Permite verificar la identidad del remitente o receptor de la información.<p></p>
-                Seguridad en comunicaciones: Es esencial en aplicaciones como correos electrónicos, transferencias bancarias, y mensajería instantánea.
+              <ul>
+                  <h1>Modelo Relacional - Ejercicio 01</h1>
+                  <li>MARCA(id, nombre)</li>
+                  <li>MODELO(id, nombre, id_marca)
+                      <ul>
+                          <li>id_marca: LLAVE FORÁNEA de MARCA(id)</li>
+                      </ul>
+                  </li>
+                  <li>VERSIÓN(id, nombre, potencia, precio_base, tipo_combustible)
+                      <ul>
+                          <li>id_modelo: LLAVE FORÁNEA de MODELO(id)</li>
+                      </ul>
+                  </li>
+                  <li>EXTRAS(id, nombre, descripcion)
+                      <ul>
+                          <li>id_version: LLAVE FORÁNEA de VERSIÓN(id)</li>
+                      </ul>
+                  </li>
+                  <li>VENDEDORES(id, nombre, apellidos, nif, direccion, telefono)</li>
+                  <li>VENDEDORES_VENTA_MODELO(id_vendedores, id_modelo, fecha_venta, nueva_matricula)</li>
+                  <li>CLIENTES(id, nombre, apellidos, nif, direccion, telefono)</li>
+                  <li>CLIENTES_COMPRA_VENTA(id_venta, id_cliente)
+                      <ul>
+                          <li>id_venta: LLAVE FORÁNEA de VENTA(id)</li>
+                          <li>id_cliente: LLAVE FORÁNEA de CLIENTE(id)</li>
+                      </ul>
+                  </li>
+                  <li>CLIENTE_CEDE_COCHE_USADO(id_cliente, id_coche_usado, id_cesion, fecha_cesion)
+                      <ul>
+                          <li>id_cliente: LLAVE FORÁNEA de CLIENTE(id)</li>
+                          <li>id_coche_usado: LLAVE FORÁNEA de COCHE_USADO(id)</li>
+                      </ul>
+                  </li>
+                  <li>COCHE_USADO(id, precio_tasacion)</li>
+              </ul>
+              <h1>Modelo Relacional - Ejercicio 02</h1>
+              <ul>
+                  <li>AGENCIA(id, telefono, ruc, direccion)</li>
+                  <li>PROPIETARIO(id, nombre, apellido, direccion, telefono, e-mail)</li>
+                  <li>VIVIENDA(id, codigo_postal, calle, numero, piso, poblacion, descripcion, id_propietario, id_agencia)
+                      <ul>
+                          <li>id_propietario: LLAVE FORÁNEA de PROPIETARIO(id)</li>
+                          <li>id_agencia: LLAVE FORÁNEA de AGENCIA(id)</li>
+                      </ul>
+                  </li>
+                  <li>INQUILINO(id, dni, nombre, apellidos, fecha_nacimiento, telefono)</li>
+                  <li>ALQUILER(id, fianza, importe_mensual, fecha_inicio, fecha_fin, fecha_firma, id_vivienda, id_inquilino)
+                      <ul>
+                          <li>id_vivienda: LLAVE FORÁNEA de VIVIENDA(id)</li>
+                          <li>id_inquilino: LLAVE FORÁNEA de INQUILINO(id)</li>
+                      </ul>
+                  </li>
+              </ul>
             </p>  
-              <li>Tipos de encriptación<p></p></li>
-                
-              <li>  Encriptación simétrica:<p></p></li>
-
-                Utiliza una sola clave para encriptar y desencriptar los datos.<p></p>
-                Ejemplo: AES (Advanced Encryption Standard).<p></p>
-                Es rápida pero menos segura si la clave se comparte de manera insegura.<p></p>
-                <li>  Encriptación asimétrica:<p></p></li>
-
-                Usa un par de claves: una clave pública para encriptar y una clave privada para desencriptar.<p></p>
-                Ejemplo: RSA.<p></p>
-                Es más segura para la comunicación entre dos partes desconocidas.<p></p>
-                <li>Encriptación hash (no reversible):<p></p></li>
-
-                Transforma los datos en un valor único (hash) que no puede revertirse al original.<p></p>
-                Ejemplo: SHA-256.<p></p>
-                Se utiliza para proteger contraseñas y verificar integridad.<p></p>
-                Ejemplo práctico<p></p>
-                Supongamos que tienes un mensaje: "Hola Mundo".<p></p>
-
-                Texto plano: Hola Mundo.<p></p>
-                Encriptado con AES (usando una clave secreta): BXY3jk29Vm8LKFg0.<p></p>
-                Solo quien tenga la clave podrá desencriptar y leer el mensaje original.<p></p>
-                Usos comunes<p></p>
-                Seguridad en internet: HTTPS utiliza encriptación para proteger la comunicación entre navegadores y sitios web.<p></p>
-                Protección de datos personales: Los datos sensibles, como contraseñas y números de tarjetas, son encriptados antes de ser almacenados.<p></p>
-                Mensajería instantánea: Aplicaciones como WhatsApp y Signal usan encriptación de extremo a extremo para proteger mensajes.<p></p>
           </p>
         </div>
       </div>
@@ -264,42 +285,15 @@
   <h2 class="mb-3">Tareas y Actividades</h2>
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">Encriptación</h5>
-
+      <h5 class="card-title">Gráficos</h5>
       <!-- Imagen 1 -->
       <div class="mb-4">
-        <img src="e1.png" alt="Descripción de la imagen 1" class="img-fluid rounded">
+        <img src="semana2.png" alt="Descripción de la imagen 1" class="img-fluid rounded">
       </div>
 
       <!-- Imagen 2 -->
       <div class="mb-4">
-        <img src="e2.png" alt="Descripción de la imagen 2" class="img-fluid rounded">
-      </div>
-
-      <!-- Imagen 3 -->
-      <div class="mb-4">
-        <img src="e3.png" alt="Descripción de la imagen 3" class="img-fluid rounded">
-      </div>
-
-      <!-- Imagen 4 -->
-      <div class="mb-4">
-        <img src="e4.png" alt="Descripción de la imagen 3" class="img-fluid rounded">
-      </div>
-
-      <div class="mb-4">
-        <img src="e6.png" alt="Descripción de la imagen 3" class="img-fluid rounded">
-      </div>
-
-      <div class="mb-4">
-        <img src="e7.png" alt="Descripción de la imagen 3" class="img-fluid rounded">
-      </div>
-
-      <div class="mb-4">
-        <img src="e8.png" alt="Descripción de la imagen 3" class="img-fluid rounded">
-      </div>
-
-      <div class="mb-4">
-        <img src="e5 (1).png" alt="Descripción de la imagen 3" class="img-fluid rounded">
+        <img src="semana2e2.png" alt="Descripción de la imagen 2" class="img-fluid rounded">
       </div>
     </div>
   </div>
